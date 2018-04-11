@@ -6,17 +6,50 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class WordNet {
-    private Set<Noun> nounList;
+    private UberNoun uberNoun;
     private Map<Integer, Synset> synsetObjectsMap;
-    private Map<String, Noun> nounMapStringToNoun;
-    private Map<Integer, Noun> nounMapIdToNoun;
     private Map<String, Set<Long>> nounStringToSynsetIds;
     private Digraph digraph;
-    SAP sap;
+    private SAP sap;
 
     private Set<Noun> getNounList() {
-        return nounList;
+        return uberNoun.getNounList();
     }
+
+    private class UberNoun {
+        private Set<Noun> nounList;
+        private Map<String, Noun> nounMapStringToNoun;
+        private Map<Integer, Noun> nounMapIdToNoun;
+
+        public Set<Noun> getNounList() {
+            return nounList;
+        }
+
+        public UberNoun() {
+            nounList = new HashSet<>();
+            nounMapIdToNoun = new HashMap<>();
+            nounMapStringToNoun = new HashMap<>();
+        }
+
+        private void addNoun(Noun newNoun) {
+            nounList.add(newNoun);
+            nounMapStringToNoun.put(newNoun.getNounString(), newNoun);
+            nounMapIdToNoun.put(newNoun.getNounId(), newNoun);
+        }
+
+        public Noun getNounByString(String nounString) {
+            return nounMapStringToNoun.get(nounString);
+        }
+
+        public Iterable<String> getNounStringIter() {
+            return nounMapStringToNoun.keySet();
+        }
+
+        public Noun getNounByNounId(int nounId) {
+            return nounMapIdToNoun.get(nounId);
+        }
+    }
+
 
     private class Synset {
         private long synsetId;
@@ -83,11 +116,10 @@ public class WordNet {
             throw new IllegalArgumentException("cannot accept null as file names");
         }
 
+        // Initialization
+        uberNoun = new UberNoun();
         nounStringToSynsetIds = new HashMap<>();
         synsetObjectsMap = new HashMap<>();
-        nounList = new HashSet<>();
-        nounMapStringToNoun = new HashMap<>();
-        nounMapIdToNoun = new HashMap<>();
         Map<Integer, Set<Noun>> synsetToNoun = new HashMap<>();
 
         // Read synsets
@@ -103,10 +135,10 @@ public class WordNet {
 
             Set<Noun> nounListForCurrentSet = new HashSet<>();
             for (String noun : nounsRaw) {
+
+
                 Noun currNoun = new Noun(synsetId, noun, nounCount++);
-                nounList.add(currNoun);
-                nounMapStringToNoun.put(currNoun.getNounString(), currNoun);
-                nounMapIdToNoun.put(currNoun.getNounId(), currNoun);
+                uberNoun.addNoun(currNoun);
                 if (nounStringToSynsetIds.get(noun) != null) {
                     nounStringToSynsetIds.get(noun).add((long) synsetId);
                 } else {
@@ -132,7 +164,7 @@ public class WordNet {
         List<String> hypernymLines = getStringsFromFile(hypernyms);
 
         // 164,21012,56099
-        digraph = new Digraph(nounList.size());
+        digraph = new Digraph(getNounList().size());
         for (String s : hypernymLines) {
             String[] tokens = s.split(",");
             // 164,21012,56099: Take the first Id and build relation to the other Ids, however do it with their nounIds since each Id represents multiple nouns
@@ -159,13 +191,13 @@ public class WordNet {
     //
 //    // returns all WordNet nouns
     public Iterable<String> nouns() {
-        return nounMapStringToNoun.keySet();
+        return uberNoun.getNounStringIter();
     }
 
 
     //    // is the word a WordNet noun?
     public boolean isNoun(String word) {
-        return nounMapStringToNoun.keySet().contains(word);
+        return uberNoun.getNounList().contains(word);
     }
 
     //    distance between nounA and nounB (defined below)
@@ -191,10 +223,10 @@ public class WordNet {
     // a synset (second field of synsets.txt) that is the common ancestor of nounA and nounB
 //    // in a shortest ancestral path (defined below)
     public String sap(String nounA, String nounB) {
-        Integer nounAId = nounMapStringToNoun.get(nounA).getNounId();
-        Integer nounBId = nounMapStringToNoun.get(nounB).getNounId();
+        Integer nounAId = uberNoun.getNounByString(nounA).getNounId();
+        Integer nounBId = uberNoun.getNounByString(nounB).getNounId();
         int ancestor = sap.ancestor(nounAId, nounBId);
-        long synsetId = nounMapIdToNoun.get(ancestor).getSynsetId();
+        long synsetId = uberNoun.getNounByNounId(ancestor).getSynsetId();
         return synsetObjectsMap.get(synsetId).getNounStringsInOriginalForm();
     }
 
