@@ -162,13 +162,6 @@ public class WordNet {
                 nounListForCurrentSet.add(currNoun);
             }
             synsetIdToSynsetMap.put(synsetId, new Synset(synsetId, nounListForCurrentSet, tokens[1]));
-            if(synsetId == 49952){
-                System.out.println("\n\n#########################################\n\n");
-                System.out.println(tokens[1]);
-                System.out.println("\n\n#########################################\n\n");
-
-            }
-
         }
 
         // Read hypernyms
@@ -199,14 +192,13 @@ public class WordNet {
         return Files.readAllLines(Paths.get(synsets));
     }
 
-    //
-//    // returns all WordNet nouns
+    // returns all WordNet nouns
     public Iterable<String> nouns() {
         return uberNoun.getNounStringIter();
     }
 
 
-    //    // is the word a WordNet noun?
+    // is the word a WordNet noun?
     public boolean isNoun(String word) {
         return uberNoun.getNounList().contains(word);
     }
@@ -224,20 +216,8 @@ public class WordNet {
     private Set<Integer> getNounIdsForSynsets(Set<Integer> nounAsynsets) {
         Set<Integer> membersOfA = new HashSet<>();
         for (Integer nA : nounAsynsets) {
-            try {
-                for (Noun Anoun : synsetIdToSynsetMap.get(nA).getNouns()) {
-                    membersOfA.add(Anoun.getNounId());
-                }
-            } catch (Throwable t) {
-                System.out.println("\n"+nA+"\n\n\n");
-                System.out.println("\n*************************\n");
-                if(synsetIdToSynsetMap == null) System.out.println("Map is null");
-                if(synsetIdToSynsetMap.get(nA) == null) System.out.println("get(nA) is null");
-                if(synsetIdToSynsetMap.get(nA).getNouns() == null) System.out.println("getNouns is null");
-
-                System.out.println("\n*************************\n");
-
-                throw t;
+            for (Noun Anoun : synsetIdToSynsetMap.get(nA).getNouns()) {
+                membersOfA.add(Anoun.getNounId());
             }
         }
         return membersOfA;

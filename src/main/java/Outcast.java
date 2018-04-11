@@ -13,18 +13,21 @@ public class Outcast {
 
     // given an array of WordNet nouns, return an outcast
     public String outcast(String[] nouns) {
-        int maxDistance = 0;
+        int maxDistance = Integer.MIN_VALUE;
         int outcast = -1;
         for (int i = 0; i < nouns.length; i++) {
             int distance = 0;
             for (int j = 0; j < nouns.length; j++) {
                 distance += wordNet.distance(nouns[i], nouns[j]);
             }
+            System.out.println(nouns[i] + " distance: " + distance + " and max distance: " + maxDistance);
+            System.out.println("_____________________________");
             if (distance > maxDistance) {
                 maxDistance = distance;
                 outcast = i;
             }
         }
+        System.out.println(nouns[outcast]);
         return nouns[outcast];
     }
 
