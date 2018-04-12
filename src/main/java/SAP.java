@@ -43,20 +43,22 @@ public class SAP {
             closestAncestor = -1;
         }
 
-        System.out.println("Path from v: " + v);
-        for(Integer pathVal : bfsPathV.pathTo(closestAncestor)){
-            System.out.print(pathVal);
-            System.out.print("->");
-        }
-        System.out.println();
+        if (false) {
+            System.out.println("Path from v: " + v);
+            for (Integer pathVal : bfsPathV.pathTo(closestAncestor)) {
+                System.out.print(pathVal);
+                System.out.print("->");
+            }
+            System.out.println();
 
-        System.out.println("Path from w: " + w);
+            System.out.println("Path from w: " + w);
 
-        for(Integer pathVal : bfsPathW.pathTo(closestAncestor)){
-            System.out.print(pathVal);
-            System.out.print("->");
+            for (Integer pathVal : bfsPathW.pathTo(closestAncestor)) {
+                System.out.print(pathVal);
+                System.out.print("->");
+            }
+            System.out.println();
         }
-        System.out.println();
         return new int[]{closestAncestor, shortestPathLen};
     }
 

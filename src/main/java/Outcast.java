@@ -1,8 +1,3 @@
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.StdOut;
-
-import java.io.IOException;
-
 public class Outcast {
     private WordNet wordNet;
 
@@ -19,28 +14,28 @@ public class Outcast {
             int distance = 0;
             for (int j = 0; j < nouns.length; j++) {
                 int pairDistance = wordNet.distance(nouns[i], nouns[j]);
-                System.out.println("distance between: " + nouns[i] + " and " + nouns[j] + " is :" + pairDistance);
-                System.out.println(wordNet.sap(nouns[i], nouns[j]));
+//                System.out.println("distance between: " + nouns[i] + " and " + nouns[j] + " is :" + pairDistance);
+//                System.out.println(wordNet.sap(nouns[i], nouns[j]));
                 distance += pairDistance;
             }
-            System.out.println(nouns[i] + " distance: " + distance + " and max distance: " + maxDistance);
-            System.out.println("_____________________________");
+//            System.out.println(nouns[i] + " distance: " + distance + " and max distance: " + maxDistance);
+//            System.out.println("_____________________________");
             if (distance > maxDistance) {
                 maxDistance = distance;
                 outcast = i;
             }
         }
-        System.out.println(nouns[outcast]);
+//        System.out.println(nouns[outcast]);
         return nouns[outcast];
     }
 
-    public static void main(String[] args) throws IOException {
-        WordNet wordnet = new WordNet(args[0], args[1]);
-        Outcast outcast = new Outcast(wordnet);
-        for (int t = 2; t < args.length; t++) {
-            In in = new In(args[t]);
-            String[] nouns = in.readAllStrings();
-            StdOut.println(args[t] + ": " + outcast.outcast(nouns));
-        }
+    public static void main(String[] args) {
+//        WordNet wordnet = new WordNet(args[0], args[1]);
+//        Outcast outcast = new Outcast(wordnet);
+//        for (int t = 2; t < args.length; t++) {
+//            In in = new In(args[t]);
+//            String[] nouns = in.readAllStrings();
+//            StdOut.println(args[t] + ": " + outcast.outcast(nouns));
+//        }
     }
 }
