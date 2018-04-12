@@ -18,7 +18,10 @@ public class Outcast {
         for (int i = 0; i < nouns.length; i++) {
             int distance = 0;
             for (int j = 0; j < nouns.length; j++) {
-                distance += wordNet.distance(nouns[i], nouns[j]);
+                int pairDistance = wordNet.distance(nouns[i], nouns[j]);
+                System.out.println("distance between: " + nouns[i] + " and " + nouns[j] + " is :" + pairDistance);
+                System.out.println(wordNet.sap(nouns[i], nouns[j]));
+                distance += pairDistance;
             }
             System.out.println(nouns[i] + " distance: " + distance + " and max distance: " + maxDistance);
             System.out.println("_____________________________");

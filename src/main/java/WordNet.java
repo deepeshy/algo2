@@ -100,7 +100,6 @@ public class WordNet {
         }
     }
 
-
     private class Noun {
         private int synsetId;
         private String nounString;
@@ -166,13 +165,14 @@ public class WordNet {
 
         // Read hypernyms
         List<String> hypernymLines = getStringsFromFile(hypernyms);
-
+        System.out.println("number of lines in hypernym: " + hypernymLines.size());
         // 164,21012,56099
         digraph = new Digraph(getNounList().size());
         for (String s : hypernymLines) {
             String[] tokens = s.split(",");
             // 164,21012,56099: Take the first Id and build relation to the other Ids, however do it with their nounIds since each Id represents multiple nouns
             int vId = Integer.parseInt(tokens[0]);
+
             Set<Noun> vs = synsetIdToSynsetMap.get(vId).getNouns();
             for (Noun vNoun : vs) {
                 // get ws
@@ -210,6 +210,18 @@ public class WordNet {
 
         Set<Integer> membersOfA = getNounIdsForSynsets(nounAsynsets);
         Set<Integer> membersOfB = getNounIdsForSynsets(nounBsynsets);
+
+        // Debug printing
+        System.out.println("______________Noun A Group:" + nounA);
+        for (Integer i : membersOfA) {
+            System.out.println(uberNoun.getNounByNounId(i).getNounString());
+        }
+
+        System.out.println("______________Noun B Group:" + nounB);
+        for (Integer i : membersOfB) {
+            System.out.println(uberNoun.getNounByNounId(i).getNounString());
+        }
+
         return sap.length(membersOfA, membersOfB);
     }
 
@@ -229,7 +241,9 @@ public class WordNet {
         Integer nounAId = uberNoun.getNounByString(nounA).getNounId();
         Integer nounBId = uberNoun.getNounByString(nounB).getNounId();
         int ancestor = sap.ancestor(nounAId, nounBId);
+        System.out.println("Ancestor: " + uberNoun.getNounByNounId(ancestor));
         int synsetId = uberNoun.getNounByNounId(ancestor).getSynsetId();
+        System.out.println("Parent synset nouns: " + synsetIdToSynsetMap.get(synsetId).getNounStringsInOriginalForm());
         return synsetIdToSynsetMap.get(synsetId).getNounStringsInOriginalForm();
     }
 
@@ -239,7 +253,15 @@ public class WordNet {
     }
 
     private static void testWordNet() throws IOException {
-        WordNet wordNet = new WordNet("C:\\Developer\\algo2\\src\\test\\resources\\wordnet\\synsets15.txt", "C:\\Developer\\algo2\\src\\test\\resources\\wordnet\\hypernyms15Path.txt");
-        wordNet.getNounList().stream().forEach(System.out::println);
+        WordNet wordNet = new WordNet("C:\\Developer\\algo2\\src\\test\\resources\\wordnet\\synsets.txt", "C:\\Developer\\algo2\\src\\test\\resources\\wordnet\\hypernyms.txt");
+//        wordNet.getNounList().stream().forEach(System.out::println);
+        System.out.println("_______________________");
+
+        String[] input = new String[]{"worm","bird"};
+
+        System.out.println("Final Answer: " + wordNet.sap(input[0], input[1]));
+        System.out.println("Final Answer: "+wordNet.distance(input[0], input[1]));
+
+
     }
 }
