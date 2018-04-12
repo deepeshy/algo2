@@ -65,7 +65,7 @@ public class WordNet {
         }
 
         sap = new SAP(digraph);
-        System.out.println("Vertices: " + digraph.V() + " Edges:" + digraph.E());
+//        System.out.println("Vertices: " + digraph.V() + " Edges:" + digraph.E());
     }
 
     // returns all WordNet nouns
@@ -78,7 +78,6 @@ public class WordNet {
         if (word == null) {
             throw new IllegalArgumentException("Word is null");
         }
-
         return nounListStrings.contains(word);
     }
 

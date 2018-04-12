@@ -1,0 +1,423 @@
+See the Assessment Guide for information on how to interpret this report.
+
+ASSESSMENT SUMMARY
+
+Compilation:  PASSED
+API:          PASSED
+
+Findbugs:     FAILED (1 warning)
+PMD:          PASSED
+Checkstyle:   FAILED (0 errors, 13 warnings)
+
+Correctness:  17/35 tests passed
+Memory:       1/4 tests passed
+Timing:       23/27 tests passed
+
+Aggregate score: 58.68%
+[Compilation: 5%, API: 5%, Findbugs: 0%, PMD: 0%, Checkstyle: 0%, Correctness: 60%, Memory: 10%, Timing: 20%]
+
+
+********************************************************************************
+*  TESTING CORRECTNESS
+********************************************************************************
+
+Testing correctness of SAP
+*-----------------------------------------------------------
+Running 19 total tests.
+
+
+Test 15: check whether SAP is immutable
+  * digraph1.txt
+    - after adding edges (v, 0) to G
+    - v = 0, w = 3
+    - student length before = 2
+    - student length after  = 1
+
+  * digraph2.txt
+    - after adding edges (v, 0) to G
+    - v = 0, w = 2
+    - student length before = 4
+    - student length after  = 1
+
+  * digraph3.txt
+    - after adding edges (v, 0) to G
+    - v = 0, w = 1
+    - student length before = -1
+    - student length after  = 1
+
+  * digraph4.txt
+    - after adding edges (v, 0) to G
+    - v = 0, w = 1
+    - student length before = 3
+    - student length after  = 1
+
+  * digraph5.txt
+    - after adding edges (v, 0) to G
+    - v = 0, w = 1
+    - student length before = -1
+    - student length after  = 1
+
+  * digraph6.txt
+    - after adding edges (v, 0) to G
+    - v = 0, w = 2
+    - student length before = 2
+    - student length after  = 1
+
+  * digraph-ambiguous-ancestor.txt
+    - after adding edges (v, 0) to G
+    - v = 0, w = 2
+    - student length before = 2
+    - student length after  = 1
+
+==> FAILED
+
+Test 17: check length() and ancestor() with Iterable arguments
+  * 100 random subsets of 1 and 1 vertices in digraph-wordnet.txt
+  * 100 random subsets of 1 and 2 vertices in digraph-wordnet.txt
+  * 100 random subsets of 2 and 1 vertices in digraph-wordnet.txt
+    - failed on trial 1 of 100
+    - v = 38743 77808
+    - w = 29652
+    - student   length() = 15
+    - reference length() = 7
+
+  * 100 random subsets of 2 and 2 vertices in digraph-wordnet.txt
+    - failed on trial 2 of 100
+    - v = 34855 64045
+    - w = 2644 55935
+    - student   length() = 11
+    - reference length() = 10
+
+  * 100 random subsets of 3 and 11 vertices in digraph-wordnet.txt
+    - failed on trial 1 of 100
+    - v = 2388 60541 64254
+    - w size = 11
+    - student   length() = 13
+    - reference length() = 5
+
+  * 100 random subsets of 11 and 3 vertices in digraph-wordnet.txt
+    - failed on trial 1 of 100
+    - v size = 11
+    - w = 56663 77257 78516
+    - student   length() = 10
+    - reference length() = 4
+
+  * 100 random subsets of 0 and 5 vertices in digraph-wordnet.txt
+  * 100 random subsets of 5 and 0 vertices in digraph-wordnet.txt
+  * 100 random subsets of 0 and 0 vertices in digraph-wordnet.txt
+==> FAILED
+
+Test 18: Check Iterable version of length() and ancestor() with null arguments
+    java.lang.NullPointerException
+
+    SAP.processAncestorsForGroups(SAP.java:81)
+    SAP.ancestor(SAP.java:107)
+    TestSAP.checkNullArguments(TestSAP.java:951)
+    TestSAP.test18(TestSAP.java:980)
+    TestSAP.main(TestSAP.java:1261)
+
+    - called ancestor(v, null)
+    - but java.lang.IllegalArgumentException not thrown
+
+==> FAILED
+
+Test 19: random calls to both version of length() and ancestor(),
+         with probabilities p1 and p2, respectively
+  * random calls in a random rooted DAG (20 vertices, 100 edges)
+    (p1 = 0.5, p2 = 0.5)
+    - ancestor() is not ancestor on shortest ancestral path
+    - failed on call 2 to ancestor()
+    - v = 0 1 4 12 14
+    - w = 1 2 4 15 19
+    - student   ancestor = 0
+    - distance from v to 0 = 0
+    - distance from w to 0 = 1
+    - reference ancestor = 1
+    - reference length   = 0
+
+  * random calls in a random digraph (20 vertices, 100 edges)
+    (p1 = 0.5, p2 = 0.5)
+    - failed on call 1 to length()
+    - v = 1 3 4 7 19
+    - w = 11 14 16 19
+    - student   length() = 2
+    - reference length() = 0
+
+==> FAILED
+
+
+Total: 15/19 tests passed!
+
+
+================================================================
+********************************************************************************
+*  TESTING CORRECTNESS (substituting reference SAP)
+********************************************************************************
+
+Testing correctness of WordNet
+*-----------------------------------------------------------
+Running 14 total tests.
+
+Test 1: check distance() with random noun pairs
+  * 1000 pairs using synsets = synsets.txt; hypernyms = hypernyms.txt
+Vertices: 82192 Edges:84505
+==> passed
+
+Test 2: check distance() with all noun pairs
+  * synsets = synsets15.txt; hypernyms = hypernyms15Path.txt
+    - failed before processing first pair
+
+    java.lang.IllegalArgumentException: vertex 14 is not between 0 and 13
+
+    edu.princeton.cs.algs4.Digraph.validateVertex(Digraph.java:162)
+    edu.princeton.cs.algs4.Digraph.addEdge(Digraph.java:171)
+    WordNet.<init>(WordNet.java:63)
+    TestWordNet.checkAllDistance(TestWordNet.java:80)
+    TestWordNet.test2(TestWordNet.java:133)
+    TestWordNet.main(TestWordNet.java:820)
+
+  * synsets = synsets15.txt; hypernyms = hypernyms15Tree.txt
+    - failed before processing first pair
+
+    java.lang.IllegalArgumentException: vertex 14 is not between 0 and 13
+
+    edu.princeton.cs.algs4.Digraph.validateVertex(Digraph.java:162)
+    edu.princeton.cs.algs4.Digraph.addEdge(Digraph.java:170)
+    WordNet.<init>(WordNet.java:63)
+    TestWordNet.checkAllDistance(TestWordNet.java:80)
+    TestWordNet.test2(TestWordNet.java:134)
+    TestWordNet.main(TestWordNet.java:820)
+
+  * synsets = synsets6.txt; hypernyms = hypernyms6TwoAncestors.txt
+Vertices: 6 Edges:6
+  * synsets = synsets11.txt; hypernyms = hypernyms11AmbiguousAncestor.txt
+Vertices: 12 Edges:12
+  * synsets = synsets8.txt; hypernyms = hypernyms8ModTree.txt
+    - failed before processing first pair
+
+    java.lang.IllegalArgumentException: vertex 7 is not between 0 and 6
+
+    edu.princeton.cs.algs4.Digraph.validateVertex(Digraph.java:162)
+    edu.princeton.cs.algs4.Digraph.addEdge(Digraph.java:170)
+    WordNet.<init>(WordNet.java:63)
+    TestWordNet.checkAllDistance(TestWordNet.java:80)
+    TestWordNet.test2(TestWordNet.java:137)
+    TestWordNet.main(TestWordNet.java:820)
+
+  * synsets = synsets8.txt; hypernyms = hypernyms8WrongBFS.txt
+    - failed before processing first pair
+
+    java.lang.IllegalArgumentException: vertex 7 is not between 0 and 6
+
+    edu.princeton.cs.algs4.Digraph.validateVertex(Digraph.java:162)
+    edu.princeton.cs.algs4.Digraph.addEdge(Digraph.java:171)
+    WordNet.<init>(WordNet.java:63)
+    TestWordNet.checkAllDistance(TestWordNet.java:80)
+    TestWordNet.test2(TestWordNet.java:138)
+    TestWordNet.main(TestWordNet.java:820)
+
+  * synsets = synsets11.txt; hypernyms = hypernyms11ManyPathsOneAncestor.txt
+    - failed before processing first pair
+
+    java.lang.IllegalArgumentException: vertex 10 is not between 0 and 9
+
+    edu.princeton.cs.algs4.Digraph.validateVertex(Digraph.java:162)
+    edu.princeton.cs.algs4.Digraph.addEdge(Digraph.java:170)
+    WordNet.<init>(WordNet.java:63)
+    TestWordNet.checkAllDistance(TestWordNet.java:80)
+    TestWordNet.test2(TestWordNet.java:139)
+    TestWordNet.main(TestWordNet.java:820)
+
+  * synsets = synsets8.txt; hypernyms = hypernyms8ManyAncestors.txt
+    - failed before processing first pair
+
+    java.lang.IllegalArgumentException: vertex 7 is not between 0 and 6
+
+    edu.princeton.cs.algs4.Digraph.validateVertex(Digraph.java:162)
+    edu.princeton.cs.algs4.Digraph.addEdge(Digraph.java:171)
+    WordNet.<init>(WordNet.java:63)
+    TestWordNet.checkAllDistance(TestWordNet.java:80)
+    TestWordNet.test2(TestWordNet.java:140)
+    TestWordNet.main(TestWordNet.java:820)
+
+==> FAILED
+
+Test 3: check distance() with random noun pairs
+  * 1000 pairs using synsets = synsets100-subgraph.txt; hypernyms = hypernyms100-subgraph.txt
+    - failed before processing the first pair
+
+    java.lang.IllegalArgumentException: vertex 99 is not between 0 and 98
+
+    edu.princeton.cs.algs4.Digraph.validateVertex(Digraph.java:162)
+    edu.princeton.cs.algs4.Digraph.addEdge(Digraph.java:170)
+    WordNet.<init>(WordNet.java:63)
+    TestWordNet.checkRandomDistance(TestWordNet.java:28)
+    TestWordNet.test3(TestWordNet.java:149)
+    TestWordNet.main(TestWordNet.java:823)
+
+  * 1000 pairs using synsets = synsets500-subgraph.txt; hypernyms = hypernyms500-subgraph.txt
+    - failed before processing the first pair
+
+    java.lang.IllegalArgumentException: vertex 499 is not between 0 and 498
+
+    edu.princeton.cs.algs4.Digraph.validateVertex(Digraph.java:162)
+    edu.princeton.cs.algs4.Digraph.addEdge(Digraph.java:170)
+    WordNet.<init>(WordNet.java:63)
+    TestWordNet.checkRandomDistance(TestWordNet.java:28)
+    TestWordNet.test3(TestWordNet.java:150)
+    TestWordNet.main(TestWordNet.java:823)
+
+  * 1000 pairs using synsets = synsets1000-subgraph.txt; hypernyms = hypernyms1000-subgraph.txt
+    - failed before processing the first pair
+
+    java.lang.IllegalArgumentException: vertex 999 is not between 0 and 998
+
+    edu.princeton.cs.algs4.Digraph.validateVertex(Digraph.java:162)
+    edu.princeton.cs.algs4.Digraph.addEdge(Digraph.java:170)
+    WordNet.<init>(WordNet.java:63)
+    TestWordNet.checkRandomDistance(TestWordNet.java:28)
+    TestWordNet.test3(TestWordNet.java:151)
+    TestWordNet.main(TestWordNet.java:823)
+
+==> FAILED
+
+Test 4: check sap() with random noun pairs
+  * 1000 pairs using synsets = synsets.txt; hypernyms = hypernyms.txt
+Vertices: 82192 Edges:84505
+==> passed
+
+Test 5: check sap() with all noun pairs
+  * synsets = synsets15.txt; hypernyms = hypernyms15Path.txt
+    - failed before processing the first pair
+
+    java.lang.IllegalArgumentException: vertex 14 is not between 0 and 13
+
+    edu.princeton.cs.algs4.Digraph.validateVertex(Digraph.java:162)
+    edu.princeton.cs.algs4.Digraph.addEdge(Digraph.java:171)
+    WordNet.<init>(WordNet.java:63)
+    TestWordNet.checkAllSAP(TestWordNet.java:256)
+    TestWordNet.test5(TestWordNet.java:304)
+    TestWordNet.main(TestWordNet.java:829)
+
+  * synsets = synsets15.txt; hypernyms = hypernyms15Tree.txt
+    - failed before processing the first pair
+
+    java.lang.IllegalArgumentException: vertex 14 is not between 0 and 13
+
+    edu.princeton.cs.algs4.Digraph.validateVertex(Digraph.java:162)
+    edu.princeton.cs.algs4.Digraph.addEdge(Digraph.java:170)
+    WordNet.<init>(WordNet.java:63)
+    TestWordNet.checkAllSAP(TestWordNet.java:256)
+    TestWordNet.test5(TestWordNet.java:305)
+    TestWordNet.main(TestWordNet.java:829)
+
+  * synsets = synsets6.txt; hypernyms = hypernyms6TwoAncestors.txt
+Vertices: 6 Edges:6
+  * synsets = synsets11.txt; hypernyms = hypernyms11AmbiguousAncestor.txt
+Vertices: 12 Edges:12
+  * synsets = synsets8.txt; hypernyms = hypernyms8ModTree.txt
+    - failed before processing the first pair
+
+    java.lang.IllegalArgumentException: vertex 7 is not between 0 and 6
+
+    edu.princeton.cs.algs4.Digraph.validateVertex(Digraph.java:162)
+    edu.princeton.cs.algs4.Digraph.addEdge(Digraph.java:170)
+    WordNet.<init>(WordNet.java:63)
+    TestWordNet.checkAllSAP(TestWordNet.java:256)
+    TestWordNet.test5(TestWordNet.java:308)
+    TestWordNet.main(TestWordNet.java:829)
+
+  * synsets = synsets8.txt; hypernyms = hypernyms8WrongBFS.txt
+    - failed before processing the first pair
+
+    java.lang.IllegalArgumentException: vertex 7 is not between 0 and 6
+
+    edu.princeton.cs.algs4.Digraph.validateVertex(Digraph.java:162)
+    edu.princeton.cs.algs4.Digraph.addEdge(Digraph.java:171)
+    WordNet.<init>(WordNet.java:63)
+    TestWordNet.checkAllSAP(TestWordNet.java:256)
+    TestWordNet.test5(TestWordNet.java:309)
+    TestWordNet.main(TestWordNet.java:829)
+
+  * synsets = synsets11.txt; hypernyms = hypernyms11ManyPathsOneAncestor.txt
+    - failed before processing the first pair
+
+    java.lang.IllegalArgumentException: vertex 10 is not between 0 and 9
+
+    edu.princeton.cs.algs4.Digraph.validateVertex(Digraph.java:162)
+    edu.princeton.cs.algs4.Digraph.addEdge(Digraph.java:170)
+    WordNet.<init>(WordNet.java:63)
+    TestWordNet.checkAllSAP(TestWordNet.java:256)
+    TestWordNet.test5(TestWordNet.java:310)
+    TestWordNet.main(TestWordNet.java:829)
+
+  * synsets = synsets8.txt; hypernyms = hypernyms8ManyAncestors.txt
+    - failed before processing the first pair
+
+    java.lang.IllegalArgumentException: vertex 7 is not between 0 and 6
+
+    edu.princeton.cs.algs4.Digraph.validateVertex(Digraph.java:162)
+    edu.princeton.cs.algs4.Digraph.addEdge(Digraph.java:171)
+    WordNet.<init>(WordNet.java:63)
+    TestWordNet.checkAllSAP(TestWordNet.java:256)
+    TestWordNet.test5(TestWordNet.java:311)
+    TestWordNet.main(TestWordNet.java:829)
+
+==> FAILED
+
+Test 6: check sap() with random noun pairs
+  * 1000 pairs using synsets = synsets100-subgraph.txt; hypernyms = hypernyms100-subgraph.txt
+Exception in thread "main" java.lang.IllegalArgumentException: vertex 99 is not between 0 and 98
+	at edu.princeton.cs.algs4.Digraph.validateVertex(Digraph.java:162)
+	at edu.princeton.cs.algs4.Digraph.addEdge(Digraph.java:170)
+	at WordNet.<init>(WordNet.java:63)
+	at TestWordNet.checkRandomSAP(TestWordNet.java:210)
+	at TestWordNet.test6(TestWordNet.java:318)
+	at TestWordNet.main(TestWordNet.java:832)
+
+
+Total: 0/14 tests passed: Could not complete tests, which results in a reported score of 0.
+
+
+================================================================
+
+
+
+********************************************************************************
+*  TIMING
+********************************************************************************
+
+Timing SAP
+*-----------------------------------------------------------
+Running 14 total tests.
+
+
+Test 3a-c: time length() and ancestor() with random subsets of 5 vertices
+  *  digraph-wordnet.txt
+     -  reference solution calls per second:  148354.00
+     -  student   solution calls per second:     148.00
+     -  reference / student ratio:              1002.39
+
+=> passed      student <= 10000x reference
+=> passed      student <=  5000x reference
+=> FAILED      student <=  1000x reference
+=> FAILED      student <=   500x reference
+
+Test 4a-c: time length() and ancestor() with random subsets of 100 vertices
+  *  digraph-wordnet.txt
+     -  reference solution calls per second:   11018.00
+     -  student   solution calls per second:       8.00
+     -  reference / student ratio:              1377.25
+
+=> passed      student <= 10000x reference
+=> passed      student <=  5000x reference
+=> FAILED      student <=  1000x reference
+=> FAILED      student <=   500x reference
+
+
+
+Total: 10/14 tests passed!
+
+
+================================================================
+
