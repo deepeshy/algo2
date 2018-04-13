@@ -126,7 +126,7 @@ public class WordNet {
     }
 
     private static void testWordNet() {
-//        WordNet wordNet = new WordNet("C:\\Developer\\algo2\\src\\test\\resources\\wordnet\\synsets15.txt", "C:\\Developer\\algo2\\src\\test\\resources\\wordnet\\hypernyms15Tree.txt");
+        WordNet wordNet = new WordNet("C:\\Developer\\algo2\\src\\test\\resources\\wordnet\\synsets3.txt", "C:\\Developer\\algo2\\src\\test\\resources\\wordnet\\hypernyms3InvalidTwoRoots.txt");
 //        wordNet.getNounList().stream().forEach(System.out::println);
 //        System.out.println("_______________________");
 

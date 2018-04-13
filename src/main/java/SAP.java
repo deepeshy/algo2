@@ -119,7 +119,6 @@ public class SAP {
         int ancestor = sap.ancestor(side1List, side2List);
         StdOut.printf("length = %d, ancestor = %d\n", length, ancestor);
 
-
         digraph-wordnet.txt
 
         - failed on trial 1 of 100
