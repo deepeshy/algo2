@@ -54,7 +54,7 @@ public class WordNet {
         // 164,21012,56099
         In inHyper = new In(hypernyms);
         String[] hyperLines = inHyper.readAllLines();
-        digraph = new Digraph(hyperLines.length);
+        digraph = new Digraph(synsetIdToNounsMap.size());
         for (String lineHyper : hyperLines) {
             String[] tokens = lineHyper.split(",");
             // 164,21012,56099: Take the first Id and build relation to the other synset Ids
@@ -118,7 +118,7 @@ public class WordNet {
     }
 
     private static void testWordNet() {
-//        WordNet wordNet = new WordNet("C:\\Developer\\algo2\\src\\test\\resources\\wordnet\\synsets.txt", "C:\\Developer\\algo2\\src\\test\\resources\\wordnet\\hypernyms.txt");
+//        WordNet wordNet = new WordNet("C:\\Developer\\algo2\\src\\test\\resources\\wordnet\\synsets15.txt", "C:\\Developer\\algo2\\src\\test\\resources\\wordnet\\hypernyms15Tree.txt");
 //        wordNet.getNounList().stream().forEach(System.out::println);
 //        System.out.println("_______________________");
 //
