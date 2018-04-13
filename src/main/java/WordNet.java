@@ -1,5 +1,7 @@
 import edu.princeton.cs.algs4.Digraph;
+import edu.princeton.cs.algs4.DirectedCycle;
 import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.Topological;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,11 +9,10 @@ import java.util.Map;
 import java.util.Set;
 
 public class WordNet {
-    private Set<String> nounListStrings;
-    private Map<Integer, String> synsetIdToNounsMap;
-    private Map<String, Set<Integer>> nounStringsToSynsetIds;
-    private Digraph digraph;
-    private SAP sap;
+    private final Set<String> nounListStrings;
+    private final Map<Integer, String> synsetIdToNounsMap;
+    private final Map<String, Set<Integer>> nounStringsToSynsetIds;
+    private final SAP sap;
 
     // constructor takes the name of the two input files
     public WordNet(String synsets, String hypernyms) {
@@ -54,7 +55,7 @@ public class WordNet {
         // 164,21012,56099
         In inHyper = new In(hypernyms);
         String[] hyperLines = inHyper.readAllLines();
-        digraph = new Digraph(synsetIdToNounsMap.size());
+        Digraph digraph = new Digraph(synsetIdToNounsMap.size());
         for (String lineHyper : hyperLines) {
             String[] tokens = lineHyper.split(",");
             // 164,21012,56099: Take the first Id and build relation to the other synset Ids
@@ -63,6 +64,13 @@ public class WordNet {
                 digraph.addEdge(vId, Integer.parseInt(tokens[i]));
             }
         }
+
+        // Check if the digraph is DAG
+        DirectedCycle dirCycle = new DirectedCycle(digraph);
+        if (dirCycle.hasCycle()) throw new IllegalArgumentException("Not a DAG");
+
+        Topological topo = new Topological(digraph);
+        if (!topo.hasOrder()) throw new IllegalArgumentException("Not a DAG");
 
         sap = new SAP(digraph);
 //        System.out.println("Vertices: " + digraph.V() + " Edges:" + digraph.E());

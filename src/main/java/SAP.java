@@ -1,17 +1,17 @@
-import edu.princeton.cs.algs4.BreadthFirstDirectedPaths;
+import edu.princeton.cs.algs4.Topological;
 import edu.princeton.cs.algs4.Digraph;
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.DirectedCycle;
+import edu.princeton.cs.algs4.BreadthFirstDirectedPaths;
+
 
 import java.util.Iterator;
 
 public class SAP {
-    private Digraph G;
+    private final Digraph G;
 
     // constructor takes a digraph (not necessarily a DAG)
     public SAP(Digraph G) {
-        this.G = G;
+         this.G = G;
     }
 
     // length of shortest ancestral path between v and w; -1 if no such path
@@ -47,22 +47,6 @@ public class SAP {
             closestAncestor = -1;
         }
 
-        if (false) {
-            System.out.println("Path from v: " + v);
-            for (Integer pathVal : bfsPathV.pathTo(closestAncestor)) {
-                System.out.print(pathVal);
-                System.out.print("->");
-            }
-            System.out.println();
-
-            System.out.println("Path from w: " + w);
-
-            for (Integer pathVal : bfsPathW.pathTo(closestAncestor)) {
-                System.out.print(pathVal);
-                System.out.print("->");
-            }
-            System.out.println();
-        }
         return new int[]{closestAncestor, shortestPathLen};
     }
 
@@ -77,13 +61,13 @@ public class SAP {
     private int[] processAncestorsForGroups(Iterable<Integer> v, Iterable<Integer> w) {
         int shortestPath = Integer.MAX_VALUE;
         int finalClosestAncestor = -1;
-        Iterator<Integer> Viterator = v.iterator();
-        Iterator<Integer> Witerator = w.iterator();
+        Iterator<Integer> vIterator = v.iterator();
+        Iterator<Integer> wIterator = w.iterator();
 
-        while (Viterator.hasNext()) {
-            Integer currentV = Viterator.next();
-            while (Witerator.hasNext()) {
-                Integer currentW = Witerator.next();
+        while (vIterator.hasNext()) {
+            int currentV = vIterator.next();
+            while (wIterator.hasNext()) {
+                int currentW = wIterator.next();
                 int sapLength = length(currentV, currentW);
                 int closestAncestor = ancestor(currentV, currentW);
                 if (sapLength != -1) {
@@ -110,18 +94,18 @@ public class SAP {
 
         return processAncestorsForGroups(v, w)[1];
     }
-
-    // do unit testing of this class
-    public static void main(String[] args) {
-        In in = new In(args[0]);
-        Digraph G = new Digraph(in);
-        SAP sap = new SAP(G);
-        while (!StdIn.isEmpty()) {
-            int v = StdIn.readInt();
-            int w = StdIn.readInt();
-            int length = sap.length(v, w);
-            int ancestor = sap.ancestor(v, w);
-            StdOut.printf("length = %d, ancestor = %d\n", length, ancestor);
-        }
-    }
+//
+//    // do unit testing of this class
+//    public static void main(String[] args) {
+//        In in = new In(args[0]);
+//        Digraph G = new Digraph(in);
+//        SAP sap = new SAP(G);
+//        while (!StdIn.isEmpty()) {
+//            int v = StdIn.readInt();
+//            int w = StdIn.readInt();
+//            int length = sap.length(v, w);
+//            int ancestor = sap.ancestor(v, w);
+//            StdOut.printf("length = %d, ancestor = %d\n", length, ancestor);
+//        }
+//    }
 }
