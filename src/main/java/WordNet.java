@@ -105,7 +105,7 @@ public class WordNet {
     }
 
     // a synset (second field of synsets.txt) that is the common ancestor of nounA and nounB
-//    // in a shortest ancestral path (defined below)
+    // in a shortest ancestral path (defined below)
     public String sap(String nounA, String nounB) {
         if (nounA == null || nounB == null) {
             throw new IllegalArgumentException("distance can be calculated only if the nouns are not null ");
@@ -129,7 +129,7 @@ public class WordNet {
 //        WordNet wordNet = new WordNet("C:\\Developer\\algo2\\src\\test\\resources\\wordnet\\synsets15.txt", "C:\\Developer\\algo2\\src\\test\\resources\\wordnet\\hypernyms15Tree.txt");
 //        wordNet.getNounList().stream().forEach(System.out::println);
 //        System.out.println("_______________________");
-//
+
 //        String[] input = new String[]{"bear", "horse"};
 //        System.out.println("Final Answer: " + wordNet.sap(input[0], input[1]));
 //        System.out.println("Final Answer: " + wordNet.distance(input[0], input[1]));

@@ -1,17 +1,24 @@
-import edu.princeton.cs.algs4.Topological;
-import edu.princeton.cs.algs4.Digraph;
-import edu.princeton.cs.algs4.DirectedCycle;
 import edu.princeton.cs.algs4.BreadthFirstDirectedPaths;
+import edu.princeton.cs.algs4.Digraph;
+import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.StdOut;
 
-
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class SAP {
     private final Digraph G;
 
     // constructor takes a digraph (not necessarily a DAG)
     public SAP(Digraph G) {
-         this.G = G;
+        this.G = new Digraph(G.V());
+        for (int i = 0; i < G.V(); i++) {
+            Iterator<Integer> iterator = G.adj(i).iterator();
+            while (iterator.hasNext()) {
+                this.G.addEdge(i, iterator.next());
+            }
+        }
     }
 
     // length of shortest ancestral path between v and w; -1 if no such path
@@ -94,18 +101,38 @@ public class SAP {
 
         return processAncestorsForGroups(v, w)[1];
     }
-//
-//    // do unit testing of this class
-//    public static void main(String[] args) {
-//        In in = new In(args[0]);
-//        Digraph G = new Digraph(in);
-//        SAP sap = new SAP(G);
-//        while (!StdIn.isEmpty()) {
-//            int v = StdIn.readInt();
-//            int w = StdIn.readInt();
-//            int length = sap.length(v, w);
-//            int ancestor = sap.ancestor(v, w);
-//            StdOut.printf("length = %d, ancestor = %d\n", length, ancestor);
-//        }
-//    }
+
+    //  do unit testing of this class
+  /*  public static void main(String[] args) {
+        In in = new In(args[0]);
+        Digraph G = new Digraph(in);
+        SAP sap = new SAP(G);
+
+        List<Integer> side1List = new ArrayList<>();
+        List<Integer> side2List = new ArrayList<>();
+        side1List.add(38743);
+        side1List.add(77808);
+        side2List.add(29652);
+        // Right answer is 7
+
+        int length = sap.length(side1List, side2List);
+        int ancestor = sap.ancestor(side1List, side2List);
+        StdOut.printf("length = %d, ancestor = %d\n", length, ancestor);
+
+
+        digraph-wordnet.txt
+
+        - failed on trial 1 of 100
+        - v = 38743 77808
+        - w = 29652
+        - student   length() = 15
+        - reference length() = 7
+
+        * 100 random subsets of 2 and 2 vertices in digraph-wordnet.txt
+        - failed on trial 2 of 100
+        - v = 34855 64045
+        - w = 2644 55935
+        - student   length() = 11
+        - reference length() = 10
+    }*/
 }
