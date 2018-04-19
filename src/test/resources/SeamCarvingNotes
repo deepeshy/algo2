@@ -1,3 +1,4 @@
 Pending stuff
 1. Throw a java.lang.IllegalArgumentException if removeVerticalSeam() or removeHorizontalSeam() is called with an array of the wrong length or if the array is not a valid seam (i.e., either an entry is outside its prescribed range or two adjacent entries differ by more than 1).
 2. Understand Topological Sort, implement it for a normal case and then try to adjust it for a 2D array
+    - Read about PQ and IndexPQ
