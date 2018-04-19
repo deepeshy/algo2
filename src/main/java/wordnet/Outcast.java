@@ -1,12 +1,14 @@
+package wordnet;
+
 public class Outcast {
     private final WordNet wordNet;
 
-    // constructor takes a WordNet object
+    // constructor takes a wordnet.WordNet object
     public Outcast(WordNet wordnet) {
         this.wordNet = wordnet;
     }
 
-    // given an array of WordNet nouns, return an outcast
+    // given an array of wordnet.WordNet nouns, return an outcast
     public String outcast(String[] nouns) {
         int maxDistance = Integer.MIN_VALUE;
         int outcast = -1;
@@ -30,8 +32,8 @@ public class Outcast {
     }
 
     public static void main(String[] args) {
-//        WordNet wordnet = new WordNet(args[0], args[1]);
-//        Outcast outcast = new Outcast(wordnet);
+//        wordnet.WordNet wordnet = new wordnet.WordNet(args[0], args[1]);
+//        wordnet.Outcast outcast = new wordnet.Outcast(wordnet);
 //        for (int t = 2; t < args.length; t++) {
 //            In in = new In(args[t]);
 //            String[] nouns = in.readAllStrings();

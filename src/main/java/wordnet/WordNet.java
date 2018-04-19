@@ -1,3 +1,5 @@
+package wordnet;
+
 import edu.princeton.cs.algs4.Digraph;
 import edu.princeton.cs.algs4.DirectedCycle;
 import edu.princeton.cs.algs4.In;
@@ -76,12 +78,12 @@ public class WordNet {
 //        System.out.println("Vertices: " + digraph.V() + " Edges:" + digraph.E());
     }
 
-    // returns all WordNet nouns
+    // returns all wordnet.WordNet nouns
     public Iterable<String> nouns() {
         return nounListStrings;
     }
 
-    // is the word a WordNet noun?
+    // is the word a wordnet.WordNet noun?
     public boolean isNoun(String word) {
         if (word == null) {
             throw new IllegalArgumentException("Word is null");

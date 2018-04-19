@@ -1,3 +1,5 @@
+package wordnet;
+
 import edu.princeton.cs.algs4.BreadthFirstDirectedPaths;
 import edu.princeton.cs.algs4.Digraph;
 import edu.princeton.cs.algs4.In;
@@ -106,7 +108,7 @@ public class SAP {
   /*  public static void main(String[] args) {
         In in = new In(args[0]);
         Digraph G = new Digraph(in);
-        SAP sap = new SAP(G);
+        wordnet.SAP sap = new wordnet.SAP(G);
 
         List<Integer> side1List = new ArrayList<>();
         List<Integer> side2List = new ArrayList<>();

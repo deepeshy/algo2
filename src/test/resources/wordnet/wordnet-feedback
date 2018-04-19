@@ -20,9 +20,9 @@ ASSESSMENT DETAILS
 
 The following files were submitted:
 ----------------------------------
-1.6K Apr 13 17:23 Outcast.java
-4.1K Apr 13 17:23 SAP.java
-5.8K Apr 13 17:23 WordNet.java
+1.6K Apr 13 17:23 wordnet.Outcast.java
+4.1K Apr 13 17:23 wordnet.SAP.java
+5.8K Apr 13 17:23 wordnet.WordNet.java
 
 
 ********************************************************************************
@@ -30,13 +30,13 @@ The following files were submitted:
 ********************************************************************************
 
 
-% javac SAP.java
+% javac wordnet.SAP.java
 *-----------------------------------------------------------
 
-% javac WordNet.java
+% javac wordnet.WordNet.java
 *-----------------------------------------------------------
 
-% javac Outcast.java
+% javac wordnet.Outcast.java
 *-----------------------------------------------------------
 
 
@@ -45,11 +45,11 @@ The following files were submitted:
 
 Checking the APIs of your programs.
 *-----------------------------------------------------------
-SAP:
+wordnet.SAP:
 
-WordNet:
+wordnet.WordNet:
 
-Outcast:
+wordnet.Outcast:
 
 ================================================================
 
@@ -68,7 +68,7 @@ Outcast:
 
 % pmd .
 *-----------------------------------------------------------
-WordNet.java:33: Avoid using assignment statements in expressions; this can make code harder to read. [AssignmentInOperand]
+wordnet.WordNet.java:33: Avoid using assignment statements in expressions; this can make code harder to read. [AssignmentInOperand]
 PMD ends with 1 warning.
 
 
@@ -77,16 +77,16 @@ PMD ends with 1 warning.
 
 % checkstyle *.java
 *-----------------------------------------------------------
-[WARN] SAP.java:101:3: The comment is empty. [EmptyComment]
+[WARN] wordnet.SAP.java:101:3: The comment is empty. [EmptyComment]
 Checkstyle ends with 0 errors and 1 warning.
 
-% custom checkstyle checks for SAP.java
+% custom checkstyle checks for wordnet.SAP.java
 *-----------------------------------------------------------
 
-% custom checkstyle checks for WordNet.java
+% custom checkstyle checks for wordnet.WordNet.java
 *-----------------------------------------------------------
 
-% custom checkstyle checks for Outcast.java
+% custom checkstyle checks for wordnet.Outcast.java
 *-----------------------------------------------------------
 
 
@@ -97,7 +97,7 @@ Checkstyle ends with 0 errors and 1 warning.
 *  TESTING CORRECTNESS
 ********************************************************************************
 
-Testing correctness of SAP
+Testing correctness of wordnet.SAP
 *-----------------------------------------------------------
 Running 19 total tests.
 
@@ -111,7 +111,7 @@ Test 1: check length() and ancestor() on fixed digraphs
   * digraph9.txt
 ==> passed
 
-Test 2: check length() and ancestor() on WordNet digraph
+Test 2: check length() and ancestor() on wordnet.WordNet digraph
   * 100 random vertex pairs in digraph-wordnet.txt
 ==> passed
 
@@ -189,14 +189,14 @@ Test 13: check length() and ancestor() on random simple digraphs
   * 20 vertices, 100 edges
 ==> passed
 
-Test 14: check whether two SAP objects can be created at the same time
+Test 14: check whether two wordnet.SAP objects can be created at the same time
   * digraph1.txt and digraph2.txt
   * digraph3.txt and digraph4.txt
   * digraph5.txt and digraph6.txt
   * digraph2.txt and digraph1.txt
 ==> passed
 
-Test 15: check whether SAP is immutable
+Test 15: check whether wordnet.SAP is immutable
   * digraph1.txt
   * digraph2.txt
   * digraph3.txt
@@ -286,10 +286,10 @@ Total: 17/19 tests passed!
 
 ================================================================
 ********************************************************************************
-*  TESTING CORRECTNESS (substituting reference SAP)
+*  TESTING CORRECTNESS (substituting reference wordnet.SAP)
 ********************************************************************************
 
-Testing correctness of WordNet
+Testing correctness of wordnet.WordNet
 *-----------------------------------------------------------
 Running 14 total tests.
 
@@ -335,7 +335,7 @@ Test 6: check sap() with random noun pairs
   * 1000 pairs using synsets = synsets1000-subgraph.txt; hypernyms = hypernyms1000-subgraph.txt
 ==> passed
 
-Test 7: check whether WordNet is immutable
+Test 7: check whether wordnet.WordNet is immutable
   * synsets = synsets.txt; hypernyms = hypernyms.txt
 ==> passed
 
@@ -368,7 +368,7 @@ Test 10: check nouns()
   * synsets = synsets8.txt; hypernyms = hypernyms8ModTree.txt
 ==> passed
 
-Test 11: check whether two WordNet objects can be created at the same time
+Test 11: check whether two wordnet.WordNet objects can be created at the same time
   * synsets1 = synsets15.txt; hypernyms1 = hypernyms15Tree.txt
     synsets2 = synsets15.txt; hypernyms2 = hypernyms15Path.txt
   * synsets1 = synsets.txt; hypernyms1 = hypernyms.txt
@@ -405,14 +405,14 @@ Total: 13/14 tests passed!
 
 ================================================================
 ********************************************************************************
-*  TESTING CORRECTNESS (substituting reference SAP and WordNet)
+*  TESTING CORRECTNESS (substituting reference wordnet.SAP and wordnet.WordNet)
 ********************************************************************************
 
-Testing correctness of Outcast
+Testing correctness of wordnet.Outcast
 *-----------------------------------------------------------
 Running 2 total tests.
 
-Test 1: check outcast() on WordNet digraph
+Test 1: check outcast() on wordnet.WordNet digraph
         (synsets.txt and hypernyms.txt)
   * outcast2.txt
   * outcast3.txt
@@ -436,7 +436,7 @@ Test 1: check outcast() on WordNet digraph
   * outcast29.txt
 ==> passed
 
-Test 2: check outcast() on WordNet subgraph
+Test 2: check outcast() on wordnet.WordNet subgraph
         (synsets50000-subgraph.txt and hypernyms50000-subgraph.txt)
   * outcast2.txt
   * outcast3.txt
@@ -460,7 +460,7 @@ Total: 2/2 tests passed!
 *  MEMORY
 ********************************************************************************
 
-Analyzing memory of SAP
+Analyzing memory of wordnet.SAP
 *-----------------------------------------------------------
 Running 1 total tests.
 
@@ -478,11 +478,11 @@ Total: 1/1 tests passed!
 
 
 
-Analyzing memory of WordNet
+Analyzing memory of wordnet.WordNet
 *-----------------------------------------------------------
 Running 3 total tests.
 
-Test 1a: check memory of WordNet object
+Test 1a: check memory of wordnet.WordNet object
   * synsets = synsets1000-subgraph.txt; hypernyms = hypernyms1000-subgraph.txt
     - number of vertices in digraph = 1000
     - number of edges    in digraph = 1008
@@ -493,7 +493,7 @@ Test 1a: check memory of WordNet object
 
 ==> passed
 
-Test 1b: check memory of WordNet object
+Test 1b: check memory of wordnet.WordNet object
   * synsets = synsets5000-subgraph.txt; hypernyms = hypernyms5000-subgraph.txt
     - number of vertices in digraph = 5000
     - number of edges    in digraph = 5059
@@ -504,7 +504,7 @@ Test 1b: check memory of WordNet object
 
 ==> passed
 
-Test 1c: check memory of WordNet object
+Test 1c: check memory of wordnet.WordNet object
   * synsets = synsets10000-subgraph.txt; hypernyms = hypernyms10000-subgraph.txt
     - number of vertices in digraph = 10000
     - number of edges    in digraph = 10087
@@ -525,11 +525,11 @@ Total: 3/3 tests passed!
 *  TIMING
 ********************************************************************************
 
-Timing SAP
+Timing wordnet.SAP
 *-----------------------------------------------------------
 Running 14 total tests.
 
-Test 1: time SAP constructor
+Test 1: time wordnet.SAP constructor
    *  digraph-wordnet.txt
       -  student solution time =  0.02 seconds
       -  maximum allowed  time =  1.00 seconds
@@ -586,10 +586,10 @@ Total: 10/14 tests passed!
 
 
 ********************************************************************************
-*  TIMING (substituting reference SAP)
+*  TIMING (substituting reference wordnet.SAP)
 ********************************************************************************
 
-Timing WordNet
+Timing wordnet.WordNet
 *-----------------------------------------------------------
 Running 11 total tests.
 
@@ -597,7 +597,7 @@ Test 1: check that exactly two In object created
         (one for synsets file and one for hypernyms file)
 ==> passed
 
-Test 2: count number of SAP operations when constructing a WordNet object
+Test 2: count number of wordnet.SAP operations when constructing a wordnet.WordNet object
         and calling distance() and sap() three times each
   * calls to constructor = 1
   * calls to length()    = 3
@@ -605,7 +605,7 @@ Test 2: count number of SAP operations when constructing a WordNet object
 
 ==> passed
 
-Test 3: count Digraph operations during WordNet constructor
+Test 3: count Digraph operations during wordnet.WordNet constructor
   * synsets = synsets.txt; hypernyms = hypernyms.txt
   * number of synsets    = 82192
   * number of hypernyms  = 84505
@@ -630,7 +630,7 @@ Test 4: count Digraph operations during 1000 calls each
 
 ==> passed
 
-Test 5: time WordNet constructor
+Test 5: time wordnet.WordNet constructor
   * synsets = synsets.txt; hypernyms = hypernyms.txt
     - student constructor time =  0.55 seconds
     - maximum allowed     time = 10.00 seconds
@@ -665,14 +665,14 @@ Total: 11/11 tests passed!
 
 
 ********************************************************************************
-*  TIMING (substituting reference SAP and WordNet)
+*  TIMING (substituting reference wordnet.SAP and wordnet.WordNet)
 ********************************************************************************
 
-Timing Outcast
+Timing wordnet.Outcast
 *-----------------------------------------------------------
 Running 2 total tests.
 
-Test 1: count calls to methods in WordNet
+Test 1: count calls to methods in wordnet.WordNet
  * outcast4.txt
  * outcast10.txt
  * outcast29.txt
